@@ -179,6 +179,43 @@ form.addEventListener("submit", function (e) {
     });
 });
 
+// CV modal viewer
+const cvOpenBtn = document.querySelector('[data-cv-open]');
+const cvModal = document.getElementById('cvModal');
+const cvOverlay = document.querySelector('[data-cv-overlay]');
+const cvCloseBtn = document.querySelector('[data-cv-close]');
+const cvFrame = document.getElementById('cvFrame');
+const cvFallbackLink = document.getElementById('cvFallbackLink');
+
+const CV_SRC = 'assets/Resume/CV of Asowad-4.pdf';
+const CV_VIEWER_SRC = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(window.location.href.replace(/[^/]*$/, CV_SRC))}`;
+
+if (cvOpenBtn && cvModal && cvFrame) {
+  cvOpenBtn.addEventListener('click', function () {
+    cvFrame.src = CV_VIEWER_SRC;
+    cvModal.classList.add('active');
+    cvModal.setAttribute('aria-hidden', 'false');
+  });
+
+  const closeCv = () => {
+    cvModal.classList.remove('active');
+    cvModal.setAttribute('aria-hidden', 'true');
+    // clear src to stop loading and free memory
+    cvFrame.src = '';
+  };
+
+  if (cvCloseBtn) cvCloseBtn.addEventListener('click', closeCv);
+  if (cvOverlay) cvOverlay.addEventListener('click', closeCv);
+
+  // close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cvModal.classList.contains('active')) closeCv();
+  });
+
+  // fallback link
+  if (cvFallbackLink) cvFallbackLink.href = CV_SRC;
+}
+
 
 
 // page navigation variables
