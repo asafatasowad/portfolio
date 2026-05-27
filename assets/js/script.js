@@ -188,11 +188,10 @@ const cvFrame = document.getElementById('cvFrame');
 const cvFallbackLink = document.getElementById('cvFallbackLink');
 
 const CV_SRC = 'assets/Resume/CV of Asowad-4.pdf';
-const CV_VIEWER_SRC = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(window.location.href.replace(/[^/]*$/, CV_SRC))}`;
 
 if (cvOpenBtn && cvModal && cvFrame) {
   cvOpenBtn.addEventListener('click', function () {
-    cvFrame.src = CV_VIEWER_SRC;
+    cvFrame.src = CV_SRC;
     cvModal.classList.add('active');
     cvModal.setAttribute('aria-hidden', 'false');
   });
